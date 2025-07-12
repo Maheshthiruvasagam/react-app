@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainLayout from "./MainLayout";
-import Header from "./header";
 import Carousel from "./index.jsx";
 import MovieDetails from "./MovieDetails";
 import FeatureCards from "./FeatureCards";
@@ -11,10 +10,9 @@ import Auth from "./Auth";
 
 function App() {
   return (
-    <Router>
+    <Router basename="/react-app"> {/* Set base path if deployed to /react-app */}
       <Routes>
-
-        {/* ✅ Home route (uses MainLayout with Header) */}
+        {/* Main layout with header */}
         <Route element={<MainLayout />}>
           <Route
             path="/"
@@ -29,12 +27,14 @@ function App() {
           />
         </Route>
 
-        {/* ❌ Auth Page (NO Header) */}
+        {/* Auth Page (no header) */}
         <Route path="/auth" element={<Auth />} />
 
-        {/* ❌ Movie Details Page (NO Header) */}
+        {/* Movie Details Page (no header) */}
         <Route path="/movie/:id" element={<MovieDetails />} />
-        
+
+        {/* 404 fallback */}
+        <Route path="*" element={<h1>404 - Page Not Found</h1>} />
       </Routes>
     </Router>
   );
